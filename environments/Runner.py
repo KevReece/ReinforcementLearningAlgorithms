@@ -1,6 +1,6 @@
 import random
-from AbstractAgent import AbstractAgent
-from AbstractEnvironment import AbstractEnvironment
+from agents.AbstractAgent import AbstractAgent
+from environments.AbstractEnvironment import AbstractEnvironment
 
 
 class Runner:

@@ -1,4 +1,4 @@
-from AbstractEnvironment import AbstractEnvironment
+from environments.AbstractEnvironment import AbstractEnvironment
 
 
 class DynamicsFunctions:
