@@ -63,14 +63,18 @@ class OneDMazeEnvironment(AbstractEnvironment):
     def get_exit_states(self):
         return self._exits
     
-    def get_probability_of_next_state_and_reward_given_state_and_action(self, state, action, next_state, reward):
-        if (action == 0 and next_state != state - 1):
-            return 0
-        if (action == 1 and next_state != state + 1):
-            return 0
-        if (reward == 0):
-            return int(next_state not in self._initial_state_rewards)
-        return int(next_state in self._initial_state_rewards and self._initial_state_rewards[next_state] == reward)
+    def get_outcome_probabilities(self, state, action):
+        next_state = self.get_action_next_states(state)[action]
+        if next_state == None:
+            return []
+        reward = 0
+        if next_state in self._initial_state_rewards:
+            reward = self._initial_state_rewards[next_state]
+        reward_index = self.get_reward_values().index(reward)
+        return [(next_state, reward_index, 1)]
 
     def get_action_next_states(self, state):
-        return [state-1, state+1]
+        return [
+            state-1 if state > 0 else None, 
+            state+1 if state < self._n_states - 1 else None
+        ]

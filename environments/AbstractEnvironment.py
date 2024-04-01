@@ -44,10 +44,10 @@ class AbstractEnvironment:
         '''Returns the exit states.'''
         pass
 
-    def get_probability_of_next_state_and_reward_given_state_and_action(self, state, action, next_state, reward) -> float:
-        '''Returns the probability of transitioning from state to next_state given action and reward.'''
+    def get_outcome_probabilities(self, state: int, action: int) -> list[tuple[int, int, float]]:
+        '''Returns the probabilities of transitioning from state using action to next_state and reward.'''
         pass
 
-    def get_action_next_states(self, state) -> list[int]:
+    def get_action_next_states(self, state: int) -> list[int]:
         '''Returns the next states given all possible action from a state.'''
         pass

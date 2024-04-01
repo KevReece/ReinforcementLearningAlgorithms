@@ -89,13 +89,16 @@ class TwoDMazeEnvironment(AbstractEnvironment):
             raise Exception('Invalid exit positions')
         return exit_states
     
-    def get_probability_of_next_state_and_reward_given_state_and_action(self, state, action, next_state, reward):
-        if (self.get_action_next_states(state)[action] != next_state or next_state is None):
-            return 0
+    def get_outcome_probabilities(self, state, action):
+        next_state = self.get_action_next_states(state)[action]
+        if next_state == None:
+            return []
         next_position = self._state_to_position(next_state)
-        if (reward == 0):
-            return int(next_position not in self._initial_position_rewards)
-        return int(next_position in self._initial_position_rewards and self._initial_position_rewards[next_position] == reward)
+        reward = 0
+        if next_position in self._initial_position_rewards:
+            reward = self._initial_position_rewards[next_position]
+        reward_index = self.get_reward_values().index(reward)
+        return [(next_state, reward_index, 1)]
 
     def get_action_next_states(self, state):
         position = self._state_to_position(state)
